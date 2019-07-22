@@ -3,48 +3,76 @@ import axios from 'axios';
 
 const CreateUser = () => {
     const [users,setUsers] = useState([])
-    const [name,setName] = useState('')
-    const URL = 'http://localhost:4000/api/users'
+    const [userName,setUserName] = useState('')
+    const URL = 'http://localhost:4000/api/users';
     
-    useEffect(()=>{
-        const fetchData = async ()=>{
+    const fetchData = async () => {
             let result = await axios.get(URL);
-            let res = result.data
+            let res = result.data;
             setUsers(res);
             console.log(res);
-        }
+    }
+
+    useEffect(()=>{
         fetchData();
     },[]);
 
     const onChangeUserName = (e) => {
-    let nameUser = e.target.value;
-    setName(nameUser)
-    console.log(name);
+    setUserName(e.target.value)
+    console.log(userName);
     }
 
-    return users.length === 0 ? <h1>Cargando...</h1> :(
+    const onSubmit = async (e)=>{
+        e.preventDefault();
+        const res = await axios.post(URL, {
+            username: userName
+        })
+        fetchData();
+        setUserName('');
+        console.log(res);
+
+    }
+
+
+    const deleteUserClick = async (id) =>{
+        await axios.delete(`${URL}/${id}`)
+        fetchData();
+    }
+
+    return (
         <div className="row">
             <div className="col-md-4">
                 <div className="card card-body">
                     <h3>Create new User</h3>
-                    <form>
+                    <form onSubmit={onSubmit}>
                         <div className="form-group">
-                            <input 
+                            <input
+                                value={userName}
                                 type="text" 
                                 className="form-control" 
                                 onChange={onChangeUserName}/>
                         </div>
+                        <button type="submit" className="btn btn-primary">
+                            Save
+                        </button>
                     </form>
                 </div>
             </div>
             <div className="col-md-8">
-                <ul className="list-group">
+                {users.length === 0 ? <h5>Cree un nuevo Usuario...</h5> :
+                    <ul className="list-group">
                     {
-                        users.map((user, index)=>(
-                            <li key={`user-${index}`} className="list-group-item list-group-item-action">{user.username}</li>
+                        users.map((user)=>(
+                            <li 
+                                key={user._id} 
+                                onDoubleClick={()=> deleteUserClick(user._id)}
+                                className="list-group-item list-group-item-action">
+                                {user.username}
+                            </li>
                         ))
                     }
                 </ul>
+                }
             </div>
         </div>
     )
