@@ -13,7 +13,8 @@ notesCtrl.createNote = async (req,res)=> {
     const newNote = new Note({
         title: title,
         content: content,
-        author: author
+        author: author,
+        date: date
     })
     console.log(newNote);
     await newNote.save()

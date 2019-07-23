@@ -1,16 +1,12 @@
 import React,{useState, useEffect} from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CreateNote = () => { 
-    const UrlUsers = 'http://localhost:4000/api/users'
     const UrlNotes = 'http://localhost:4000/api/notes'
-    //GET Users
     const [users, setUsers] = useState([])
-
     //Select User
-
     const [note, setNote] = useState({
         author:'',
         title:'',
@@ -19,13 +15,20 @@ const CreateNote = () => {
     })
 
     const fetchData = async () => {
+        const UrlUsers = 'http://localhost:4000/api/users'
         let result = await axios.get(UrlUsers);
-        setUsers(result.data.map((user)=> user.username));
-        setNote({...note, author: result.data[0].username});
+        console.log(result.data);
+        return result.data;
     }
-
+    
     useEffect(()=>{
         fetchData()
+            .then(res => {
+                setUsers(res.map((user)=> user.username))
+                setNote({...note, author: res[0].username})
+            })
+            
+        // setUsers(users.map((user)=> user.username))
     },[])
 
     const onSubmit = async (e)=>{
@@ -38,8 +41,14 @@ const CreateNote = () => {
         };
 
         const res = await axios.post(UrlNotes, newNote);
+        // console.log(newNote)
         console.log(res.data.message);
         window.location.href = "/";
+    }
+
+    const onChangeDate = (date) =>{
+        setNote({...note, date: date});
+        // console.log(note);
     }
 
 
@@ -92,7 +101,7 @@ const CreateNote = () => {
                         <DatePicker 
                         className="form-control"
                         selected={note.date}
-                        onChange={(date)=>setNote({...note, date: date})}
+                        onChange={onChangeDate}
                         />
                     </div>
                       
