@@ -10,7 +10,7 @@ const CreateUser = () => {
             let result = await axios.get(URL);
             let res = result.data;
             setUsers(res);
-            console.log(res);
+            // console.log(res);
     }
 
     useEffect(()=>{
@@ -19,17 +19,16 @@ const CreateUser = () => {
 
     const onChangeUserName = (e) => {
     setUserName(e.target.value)
-    console.log(userName);
     }
 
     const onSubmit = async (e)=>{
         e.preventDefault();
-        const res = await axios.post(URL, {
+        await axios.post(URL, {
             username: userName
         })
         fetchData();
         setUserName('');
-        console.log(res);
+        // console.log(res);
 
     }
 

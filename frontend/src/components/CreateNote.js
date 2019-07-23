@@ -3,7 +3,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const CreateNote = () => { 
+const CreateNote = props => { 
     const UrlNotes = 'http://localhost:4000/api/notes'
     const [users, setUsers] = useState([])
     //Select User
@@ -11,24 +11,43 @@ const CreateNote = () => {
         author:'',
         title:'',
         content:'',
-        date: new Date()
+        date: new Date(),
+        idNote:''
     })
+    const [edit,setEdit] = useState(false)
 
     const fetchData = async () => {
-        const UrlUsers = 'http://localhost:4000/api/users'
-        let result = await axios.get(UrlUsers);
-        console.log(result.data);
-        return result.data;
+
+        if(props.match.params.id){
+            setNote({...note, idNote: props.match.params.id})
+            setEdit(true)
+            let id = props.match.params.id;
+            const UrlNote = `http://localhost:4000/api/notes/${id}`;
+            let result = await axios.get(UrlNote);
+            let resNote = await result.data
+            setNote({
+                author: resNote.author,
+                title: resNote.title,
+                content: resNote.content,
+                date: new Date(resNote.date)
+            })
+            const UrlUsers = 'http://localhost:4000/api/users'
+            let resultUser = await axios.get(UrlUsers);
+            setUsers( await resultUser.data.map((user)=> user.username))
+
+        }
+        else{
+            const UrlUsers = 'http://localhost:4000/api/users'
+            let result = await axios.get(UrlUsers);
+            setUsers( await result.data.map((user)=> user.username));
+            setNote({...note, author: await result.data[0].username})
+                     
+        }
+
     }
     
     useEffect(()=>{
-        fetchData()
-            .then(res => {
-                setUsers(res.map((user)=> user.username))
-                setNote({...note, author: res[0].username})
-            })
-            
-        // setUsers(users.map((user)=> user.username))
+        fetchData();
     },[])
 
     const onSubmit = async (e)=>{
@@ -39,10 +58,13 @@ const CreateNote = () => {
             content: note.content,
             date: note.date,
         };
-
-        const res = await axios.post(UrlNotes, newNote);
-        // console.log(newNote)
-        console.log(res.data.message);
+        if(edit){
+            let resPut = await axios.put(`http://localhost:4000/api/notes/${props.match.params.id}`,newNote)
+            console.log(resPut);
+        }else{
+            const res = await axios.post(UrlNotes, newNote);
+            console.log(res.data.message);
+        }
         window.location.href = "/";
     }
 
@@ -52,7 +74,7 @@ const CreateNote = () => {
     }
 
 
-    return users.length === 0 ? <h4>Cargando...</h4> : (
+    return (
         <div className="col-md-6 offset-md-3">
             <div className="card card-body">
                 <h4>Create a Note</h4>
@@ -63,12 +85,12 @@ const CreateNote = () => {
                         <select className="form-control"
                             name="author"
                             required
-                            defaultValue="Select" 
+                            value={note.author}
                             onChange={e => setNote({...note, author: e.target.value})}
                             >
                             <option disabled value="Select">Seleccionar</option>
                             {
-                                users.map((user,index)=> 
+                                users.map((user)=> 
                                 <option key={user} value={user}>
                                     {user}
                                 </option> )
@@ -82,6 +104,7 @@ const CreateNote = () => {
                         placeholder="Title"
                         name="title"
                         required
+                        value={note.title}
                         onChange={e => setNote({...note, title: e.target.value}) }
                         />
                     </div>
@@ -91,14 +114,15 @@ const CreateNote = () => {
                         name="content" 
                         className="form-control" 
                         placeholder="Content" 
-                        required 
+                        required
+                        value={note.content}
                         onChange={e => setNote({...note, content: e.target.value})}
                         >
                         </textarea>
                     </div>
 
                     <div className="form-group">
-                        <DatePicker 
+                        <DatePicker
                         className="form-control"
                         selected={note.date}
                         onChange={onChangeDate}
