@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import moment from 'moment';
 import axios from 'axios';
 import Note from './Note'
+import Loader from './Loader.jsx'
 
 const NotesList = () => {
 
@@ -27,12 +28,14 @@ const NotesList = () => {
 
     return (
         <div className="row">
-            {notes.length === 0 ? <h2>{`No hay Notas :D`}</h2> :(
 
-                notes.map((note)=>(
-                <div className="col-md-6 p-3 ">
+            {notes.length === 0 ? <Loader/> :(
+                
+                
+                    notes.map((note)=>(
+                    <div className="col-md-6 p-3 ">
                     <Note key={note._id} onClickDeleteNote={onClickDeleteNote} note={note} />
-                </div>
+                    </div>
                 
                     ))
             )

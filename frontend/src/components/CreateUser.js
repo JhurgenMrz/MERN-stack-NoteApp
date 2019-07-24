@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
+import Loader from './Loader.jsx'
 
 const CreateUser = () => {
     const [users,setUsers] = useState([])
@@ -58,19 +59,21 @@ const CreateUser = () => {
                 </div>
             </div>
             <div className="col-md-8">
-                {users.length === 0 ? <h5>Cree un nuevo Usuario...</h5> :
+                {users.length === 0 ? <Loader/> :
+                <div>
                     <ul className="list-group">
                     {
                         users.map((user)=>(
                             <li 
-                                key={user._id} 
-                                onDoubleClick={()=> deleteUserClick(user._id)}
-                                className="list-group-item list-group-item-action">
+                            key={user._id} 
+                            onDoubleClick={()=> deleteUserClick(user._id)}
+                            className="list-group-item list-group-item-action">
                                 {user.username}
                             </li>
                         ))
                     }
-                </ul>
+                    </ul>
+                    </div>
                 }
             </div>
         </div>
