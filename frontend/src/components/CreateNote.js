@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const CreateNote = props => { 
-    const UrlNotes = 'http://localhost:4000/api/notes'
+    const UrlNotes = 'https://noteapp-jm.herokuapp.com/api/notes'
     const [users, setUsers] = useState([])
     //Select User
     const [note, setNote] = useState({
@@ -22,7 +22,7 @@ const CreateNote = props => {
             setNote({...note, idNote: props.match.params.id})
             setEdit(true)
             let id = props.match.params.id;
-            const UrlNote = `http://localhost:4000/api/notes/${id}`;
+            const UrlNote = `https://noteapp-jm.herokuapp.com/api/notes/${id}`;
             let result = await axios.get(UrlNote);
             let resNote = await result.data
             setNote({
@@ -31,13 +31,13 @@ const CreateNote = props => {
                 content: resNote.content,
                 date: new Date(resNote.date)
             })
-            const UrlUsers = 'http://localhost:4000/api/users'
+            const UrlUsers = 'https://noteapp-jm.herokuapp.com/api/users'
             let resultUser = await axios.get(UrlUsers);
             setUsers( await resultUser.data.map((user)=> user.username))
 
         }
         else{
-            const UrlUsers = 'http://localhost:4000/api/users'
+            const UrlUsers = 'https://noteapp-jm.herokuapp.com/api/users'
             let result = await axios.get(UrlUsers);
             setUsers( await result.data.map((user)=> user.username));
             setNote({...note, author: await result.data[0].username})
@@ -59,7 +59,7 @@ const CreateNote = props => {
             date: note.date,
         };
         if(edit){
-            let resPut = await axios.put(`http://localhost:4000/api/notes/${props.match.params.id}`,newNote)
+            let resPut = await axios.put(`https://noteapp-jm.herokuapp.com/api/notes/${props.match.params.id}`,newNote)
             console.log(resPut);
         }else{
             const res = await axios.post(UrlNotes, newNote);

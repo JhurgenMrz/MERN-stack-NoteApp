@@ -9,8 +9,9 @@ const NotesList = () => {
     const [notes,setNotes] = useState([])
 
     async function fetchData(){
-        const res = await axios.get('http://localhost:4000/api/notes');
-        setNotes(res.data);
+        const res = await axios.get('https://noteapp-jm.herokuapp.com/api/notes');
+        const reverseData = res.data.reverse();
+        setNotes(reverseData);
     }
 
     useEffect(()=>{
@@ -21,7 +22,7 @@ const NotesList = () => {
     moment.locale('es')
 
     const onClickDeleteNote = async (id) =>{
-       let res =  await axios.delete(`http://localhost:4000/api/notes/${id}`)
+       let res =  await axios.delete(`https://noteapp-jm.herokuapp.com/api/notes/${id}`)
        console.log(res);
        fetchData();
     }

@@ -5,7 +5,7 @@ import Loader from './Loader.jsx'
 const CreateUser = () => {
     const [users,setUsers] = useState([])
     const [userName,setUserName] = useState('')
-    const URL = 'http://localhost:4000/api/users';
+    const URL = 'https://noteapp-jm.herokuapp.com/api/users';
     
     const fetchData = async () => {
             let result = await axios.get(URL);
