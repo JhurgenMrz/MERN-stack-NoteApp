@@ -29,9 +29,9 @@ const Nav = () => {
         <div className={`line ${menu.links}`}></div>
       </div>
       <ul className={`nav-links ${menu.circle}`}>
-        <li><Link to="/">Notes</Link></li>
-        <li><Link to="/create">Create Note</Link></li>
-        <li><Link to="/user">Create User</Link></li>
+        <li className={`${menu.links}`}><Link to="/">Notes</Link></li>
+        <li className={`${menu.links}`}><Link to="/create">Create Note</Link></li>
+        <li className={`${menu.links}`}><Link to="/user">Create User</Link></li>
       </ul>
     </nav>
   );
