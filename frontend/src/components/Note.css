@@ -1,0 +1,25 @@
+.btn-edit{
+    border-radius: 5px;
+    background-color: #17a2b8;
+    width: 100%;
+    height: auto;
+    padding: 5px 7px;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+@media screen and (max-width: 768px){
+    .card-header{
+        padding: 0.75rem 5px;
+    }
+    .card-header h5{
+        margin: 5px 0;
+        padding: 0;
+    }
+    .card-header p{
+        padding: 0;
+    }
+}

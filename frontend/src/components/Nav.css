@@ -1,6 +1,13 @@
 nav{
     height: 10vh;
     background: #17223b;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.nav-links li a i{
+    margin-right: 7px;
+    font-size: 20px
 }
 .nav-links{
     display: flex;
@@ -9,12 +16,23 @@ nav{
     height: 100%;
     justify-content: space-around;
     align-items: center;
-    margin-left: auto;
 }
 .nav-links li a{
     color: white;
     text-decoration: none;
     font-size: 16px;
+}
+nav .logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+    color: white;
+}
+nav .logo i{
+    margin-right: 10px;
+    font-size: 27px;
 }
 
 @media screen and (max-width: 768px){
@@ -23,6 +41,13 @@ nav{
 
     nav{
         position: relative;
+        justify-content: center;
+    }
+    nav .logo{
+        margin: 0;
+    }
+    nav .logo i{
+        font-size: 37px;
     }
 
     .hamburger{
@@ -49,21 +74,30 @@ nav{
     
     .nav-links{
         position: fixed;
-        background: #5d78c7;
+        background: #17223b;
         height: 100vh;
         width: 100%;
         flex-direction: column;
         clip-path: circle(100px at 90% -10%);
-        -webkit-clip-path: circle(70px at 90% -10%);
+        -webkit-clip-path: circle(65px at 93% -10%);
         transition: all 400ms ease-in-out;
         pointer-events: none;
         z-index: 1;
+        justify-content: space-evenly;
+
+    }
+    .nav-links li a i{
+        margin-right: 13px;
+        font-size: 35px;
     }
 
     .nav-links.open{
         clip-path: circle(1000px at 90% -10%);
         -webkit-clip-path: circle(1000px at 90% -10%);
         pointer-events: all;
+
+    }
+    .nav-links ul{
 
     }
     .nav-links li{

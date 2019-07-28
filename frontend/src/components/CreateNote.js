@@ -2,8 +2,9 @@ import React,{useState, useEffect} from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {withRouter} from 'react-router-dom'
 
-const CreateNote = props => { 
+const CreateNote = ( props ) => { 
     const UrlNotes = 'https://noteapp-jm.herokuapp.com/api/notes'
     const [users, setUsers] = useState([])
     //Select User
@@ -65,7 +66,7 @@ const CreateNote = props => {
             const res = await axios.post(UrlNotes, newNote);
             console.log(res.data.message);
         }
-        window.location.href = "/";
+        props.history.push('/');
     }
 
     const onChangeDate = (date) =>{

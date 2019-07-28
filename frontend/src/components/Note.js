@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/es';
+import './Note.css'
 
 
 
@@ -20,8 +21,8 @@ const Note = (props) => {
                                 }
                                 <Link 
                                 to={`/edit/${props.note._id}`} 
-                                className="btn btn-info col-2">
-                                    Edit
+                                className="btn-edit">
+                                    <i class="far fa-edit"></i>
                                 </Link>
                             </div>
                             <div className="card-body">

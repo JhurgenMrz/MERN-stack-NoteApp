@@ -23,15 +23,19 @@ const Nav = () => {
 
   return (
     <nav>
+      <div class="logo">
+        <i class="fas fa-book-open"></i>
+        <h3>NoteApp</h3>
+      </div>
     <div className={`hamburger ${menu.button}`}  onClick={handleClickMenu}>
-        <div className={`line ${menu.links}`}></div>
-        <div className={`line ${menu.links}`}></div>
-        <div className={`line ${menu.links}`}></div>
+        <div className={`line `}></div>
+        <div className={`line `}></div>
+        <div className={`line `}></div>
       </div>
       <ul className={`nav-links ${menu.circle}`}>
-        <li className={`${menu.links}`}><Link to="/">Notes</Link></li>
-        <li className={`${menu.links}`}><Link to="/create">Create Note</Link></li>
-        <li className={`${menu.links}`}><Link to="/user">Create User</Link></li>
+        <li className={`${menu.links}`}><Link to="/" onClick={handleClickMenu}><i class="far fa-bookmark"></i> Notes</Link></li>
+        <li className={`${menu.links}`}><Link to="/create" onClick={handleClickMenu}><i class="far fa-sticky-note"></i>Create Note</Link></li>
+        <li className={`${menu.links}`}><Link to="/user" onClick={handleClickMenu}><i class="far fa-user"></i>Create User</Link></li>
       </ul>
     </nav>
   );
