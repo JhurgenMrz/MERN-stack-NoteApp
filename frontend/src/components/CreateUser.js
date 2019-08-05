@@ -41,7 +41,7 @@ const CreateUser = () => {
 
     return (
         <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-4 p-1">
                 <div className="card card-body">
                     <h3>Create new User</h3>
                     <form onSubmit={onSubmit}>
@@ -58,7 +58,7 @@ const CreateUser = () => {
                     </form>
                 </div>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-8 p-1">
                 {users.length === 0 ? <Loader/> :
                 <div>
                     <ul className="list-group">

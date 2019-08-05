@@ -118,6 +118,7 @@ const CreateNote = ( props ) => {
                         required
                         value={note.content}
                         onChange={e => setNote({...note, content: e.target.value})}
+                        style={{height: 180}}
                         >
                         </textarea>
                     </div>

@@ -12,13 +12,15 @@ const Note = (props) => {
             <div key={props.note._id} >
                         <div className="card ">
                             <div className="card-header d-flex justify-content-between">
-                                <h5 className="card-title col-6">{props.note.title}</h5>
+                                <div className="note-details">
+                                <h5 >{props.note.title}</h5>
                                 {props.note.date > new Date() 
                                 ?
-                                <p className="col-4 text-muted">{moment(props.note.date).toNow()}</p>
+                                <p className="">{moment(props.note.date).toNow()}</p>
                                 :
-                                <p className="col-4 text-muted">{moment(props.note.date).fromNow()}</p>
+                                <p className="">{moment(props.note.date).fromNow()}</p>
                                 }
+                                </div>
                                 <Link 
                                 to={`/edit/${props.note._id}`} 
                                 className="btn-edit">

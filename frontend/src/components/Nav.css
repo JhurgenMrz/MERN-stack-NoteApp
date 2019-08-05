@@ -5,6 +5,10 @@ nav{
     flex-direction: row;
     justify-content: space-evenly;
 }
+.logo a{
+    color: white;
+    text-decoration: none;
+}
 .nav-links li a i{
     margin-right: 7px;
     font-size: 20px
@@ -34,7 +38,13 @@ nav .logo i{
     margin-right: 10px;
     font-size: 27px;
 }
+.nav-links li{
+    opacity: 1;
+}
 
+.nav-links li.fade{
+    opacity: 1;
+}
 @media screen and (max-width: 768px){
     
     
@@ -95,9 +105,6 @@ nav .logo i{
         clip-path: circle(1000px at 90% -10%);
         -webkit-clip-path: circle(1000px at 90% -10%);
         pointer-events: all;
-
-    }
-    .nav-links ul{
 
     }
     .nav-links li{
